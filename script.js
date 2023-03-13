@@ -24,16 +24,38 @@ function fetchPokemon(id){
 }
 
 function go(){
-  const pokemonList = document.getElementById("pokemonList").innerHTML.split(',')
+  const pokemonList = document.getElementById("pokemonList").innerHTML.split(',').filter(e => e !== "")
   if (pokemonList.length){
     document.getElementById("pokemonNumber").value = 1
     document.getElementById("pokemonList").innerHTML = ''
+    document.getElementById("results").innerHTML = ''
     const root = new Link(pokemonList[0])
     for (let i=1; i<pokemonList.length; i++){
       root.add(new Link(pokemonList[i]))
     }
     root.handle()
   }
+}
+
+function addPokemon(json){
+  const { data } = json
+  console.log(data.sprites.front_default)
+  let template = document.createElement('template');
+  let html = `
+    <div class="panel panel-default">
+      <div class="panel-heading">${data.forms[0].name.toUpperCase()}</div>
+      <div class="panel-body">
+         <img src="${data.sprites.front_default}" alt="${data.forms[0].name}" width="100" height="100"> 
+        <div>
+          <p><b>Height: </b>${data.height}</p>
+          <p><b>Height: </b>${data.weight}</p>
+        </div>
+      </div>
+    </div>
+  `
+  html = html.trim();
+  template.innerHTML = html;
+  document.getElementById("results").appendChild(template.content.firstChild);
 }
 
 function Link(id){
@@ -48,6 +70,7 @@ function Link(id){
   this.handle = async function(prev){
     console.log(`prev was ${prev}, curr is ${this.id}`)
     const response = await fetchPokemon(this.id)
+    if (response.data) addPokemon(response)
     if (response.data && this.next) this.next.handle(this.id)
   }
 }
