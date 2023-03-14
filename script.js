@@ -33,6 +33,8 @@ function go(){
     for (let i=1; i<pokemonList.length; i++){
       root.add(new Link(pokemonList[i]))
     }
+    document.getElementById('menu').classList.add("hidden")
+    document.getElementById('loading').classList.remove("hidden")
     root.handle()
   }
 }
@@ -59,9 +61,9 @@ function addError(){
   let template = document.createElement('template');
   let html = `
     <div class="card">
-      <img src="error.png" class="card-img-top" alt="error">
+      <img src="error.png" class="card-img-top error-icon" alt="error">
       <div class="card-body">
-        <h5 class="card-title">Error</h5>
+        <h5 class="card-title">ERROR</h5>
         <p class="card-text">There was an error fetching this pokemon, chain will be broken</p>
       </div>
     </div>
@@ -69,6 +71,8 @@ function addError(){
   html = html.trim();
   template.innerHTML = html;
   document.getElementById("results").appendChild(template.content.firstChild);
+  document.getElementById('menu').classList.remove("hidden")
+  document.getElementById('loading').classList.add("hidden")
 }
 
 function Link(id){
@@ -81,10 +85,13 @@ function Link(id){
   }
 
   this.handle = async function(prev){
-    console.log(`prev was ${prev}, curr is ${this.id}`)
     const response = await fetchPokemon(this.id)
     if (response.data) addPokemon(response)
     if (response.error) addError()
     if (response.data && this.next) this.next.handle(this.id)
+    if (response.data && !this.next) { 
+      document.getElementById('menu').classList.remove("hidden")
+      document.getElementById('loading').classList.add("hidden")
+    }
   }
 }

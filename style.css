@@ -12,6 +12,14 @@ html {
   margin: 1px
 }
 
+.error-icon {
+  padding: 40%;
+}
+
+.hidden {
+  display: none;
+}
+
 #results {
   display: flex;
   flex-wrap: wrap;
