@@ -43,7 +43,7 @@ function addPokemon(json){
   const { data } = json
   let template = document.createElement('template');
   let html = `
-    <div class="card">
+    <div class="card animate__animated animate__flipInX">
       <img src="${data.sprites.front_default}" class="card-img-top" alt="${data.forms[0].name}">
       <div class="card-body">
         <h5 class="card-title">${data.forms[0].name.toUpperCase()}</h5>
@@ -60,7 +60,7 @@ function addPokemon(json){
 function addError(){
   let template = document.createElement('template');
   let html = `
-    <div class="card">
+    <div class="card animate__animated animate__flipInX">
       <img src="error.png" class="card-img-top error-icon" alt="error">
       <div class="card-body">
         <h5 class="card-title">ERROR</h5>

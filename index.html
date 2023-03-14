@@ -8,24 +8,27 @@
   <link href="style.css" rel="stylesheet" type="text/css" />
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+  />
 </head>
 
 <body>
   <div class="container-fluid py-5 text-bg-dark">
     <h1 class="display-5 fw-bold">Pokemon chain of responsibility (in VanillaJS)</h1>
-    <p class="col-md-8 fs-4">This excercise is to implement chain of responsibility design pattern implementing linked lists.</p>
+    <p class="col-md-8 fs-6">The chain-of-responsibility pattern is a behavioral design pattern consisting of a source of command objects and a series of processing objects. Each processing object contains logic that defines the types of command objects that it can handle; the rest are passed to the next processing object in the chain. <a class="text-warning" href="https://en.wikipedia.org/wiki/Chain-of-responsibility_pattern">Read the wikipedia article</a></p>
+    <p class="col-md-8 fs-6">The purpose of this excercise is to implement this design pattern in Vanilla JavaScript creating a list of pokemon to fetch and then display the results (using <a class="text-warning" href="https://pokeapi.co/">PokeAPI</a>). If some service call fails then chain breaks and no other service call is performed. (try adding number 9999, there aren't that many pokemon... yet.)</p>
   </div>
 
-  <div id="menu" class="container-fluid py-2">
-    <p>Choose a pokemon to add to the list</p>
-    <input id="pokemonNumber" type="number" value="1" min="1" max="151"/>
+  <div id="menu" class="container-fluid">
+    <h4>Choose a pokemon to add to the list</h4>
+    <input id="pokemonNumber" type="number" value="1" min="1"/>
     <button type="button" class="btn btn-light" onclick="addPokemonToList()">Add</button>
     <button type="button" class="btn btn-success" onclick="go()">GO</button>
     <br>
     <p>Pokemon to fetch: <b id="pokemonList"></b></p>
   </div>
 
-  <div id="loading" class="container-fluid py-6 hidden">
+  <div id="loading" class="container-fluid hidden">
     <div class="d-flex align-items-center">
       <strong>Fetching...</strong>
       <div class="spinner-border ms-auto" role="status" aria-hidden="true"></div>
