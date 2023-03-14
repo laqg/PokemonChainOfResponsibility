@@ -3,9 +3,13 @@ html {
   width: 100%;
 }
 
-.panel {
-  width: 150px;
+.card {
+  width: 180px;
   margin: 5px;
+}
+
+.card-text {
+  margin: 1px
 }
 
 #results {

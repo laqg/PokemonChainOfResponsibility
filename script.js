@@ -39,17 +39,30 @@ function go(){
 
 function addPokemon(json){
   const { data } = json
-  console.log(data.sprites.front_default)
   let template = document.createElement('template');
   let html = `
-    <div class="panel panel-default">
-      <div class="panel-heading">${data.forms[0].name.toUpperCase()}</div>
-      <div class="panel-body">
-         <img src="${data.sprites.front_default}" alt="${data.forms[0].name}" width="100" height="100"> 
-        <div>
-          <p><b>Height: </b>${data.height}</p>
-          <p><b>Height: </b>${data.weight}</p>
-        </div>
+    <div class="card">
+      <img src="${data.sprites.front_default}" class="card-img-top" alt="${data.forms[0].name}">
+      <div class="card-body">
+        <h5 class="card-title">${data.forms[0].name.toUpperCase()}</h5>
+        <p class="card-text"><b>Height: </b>${data.height}</p>
+        <p class="card-text"><b>Height: </b>${data.weight}</p>
+      </div>
+    </div>
+  `
+  html = html.trim();
+  template.innerHTML = html;
+  document.getElementById("results").appendChild(template.content.firstChild);
+}
+
+function addError(){
+  let template = document.createElement('template');
+  let html = `
+    <div class="card">
+      <img src="error.png" class="card-img-top" alt="error">
+      <div class="card-body">
+        <h5 class="card-title">Error</h5>
+        <p class="card-text">There was an error fetching this pokemon, chain will be broken</p>
       </div>
     </div>
   `
@@ -71,6 +84,7 @@ function Link(id){
     console.log(`prev was ${prev}, curr is ${this.id}`)
     const response = await fetchPokemon(this.id)
     if (response.data) addPokemon(response)
+    if (response.error) addError()
     if (response.data && this.next) this.next.handle(this.id)
   }
 }
