@@ -48,7 +48,7 @@ function addPokemon(json){
       <div class="card-body">
         <h5 class="card-title">${data.forms[0].name.toUpperCase()}</h5>
         <p class="card-text"><b>Height: </b>${data.height}</p>
-        <p class="card-text"><b>Height: </b>${data.weight}</p>
+        <p class="card-text"><b>Weight: </b>${data.weight}</p>
       </div>
     </div>
   `
